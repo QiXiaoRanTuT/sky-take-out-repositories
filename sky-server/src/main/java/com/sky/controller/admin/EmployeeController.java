@@ -1,19 +1,20 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,4 +72,27 @@ public class EmployeeController {
         return Result.success();
     }
 
+    @PostMapping
+    @ApiOperation("新增员工")
+    public Result save(@RequestBody EmployeeDTO employeeDTO){
+        log.info("新增员工：{}", employeeDTO);
+        employeeService.save(employeeDTO);
+        return Result.success();
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("分页功能")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
+        log.info("分页功能：{}", employeePageQueryDTO);
+        PageResult page = employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(page);
+    }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("修改员工状态")
+    public Result startOrStop(@PathVariable Integer status, Long id){
+        log.info("启用禁用员工参数：status:{},id:{}", status, id);
+        employeeService.alterStatus(status,id);
+        return Result.success();
+    }
 }
