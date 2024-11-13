@@ -29,4 +29,7 @@ public interface EmployeeMapper {
 //    为了提高复用性采用动态SQL
 //    @Update("update employee set status = #{status} where id = #{id}")
     void updateById(Employee employee);
+
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
 }

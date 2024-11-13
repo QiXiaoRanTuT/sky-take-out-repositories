@@ -6,31 +6,31 @@
         update sky_take_out.employee
         <set>
             <if test="name != null and name != ''">
-                name = #{name}
+                name = #{name},
             </if>
-            <if test="username != null">
-                username = #{username}
+            <if test="username != null and username != ''">
+                username = #{username},
             </if>
             <if test="password != null">
-                password = #{password}
+                password = #{password},
             </if>
             <if test="phone != null">
-                phone = #{phone}
+                phone = #{phone},
             </if>
             <if test="sex != null">
-                sex = #{sex}
+                sex = #{sex},
             </if>
             <if test="idNumber != null">
-                id_number = #{idNumber}
+                id_number = #{idNumber},
             </if>
             <if test="updateTime != null">
-                update_time = #{updateTime}
+                update_time = #{updateTime},
             </if>
             <if test="updateUser != null">
-                update_user = #{updateUser}
+                update_user = #{updateUser},
             </if>
             <if test="status != null">
-                status = #{status}
+                status = #{status},
             </if>
         </set>
         where id = #{id}
@@ -57,4 +57,5 @@
         </where>
         order by create_time desc
     </select>
+
 </mapper>
